@@ -17,5 +17,15 @@ services:
       - type: bind
         source: ./example/cgi-bin
         target: /usr/local/apache2/cgi-bin
+      - type: bind
+        source: ./example/htdocs
+        target: /usr/local/apache2/htdocs
     ports:
       - "80:80"
+  php:
+    build:
+      context: ./docker/php
+    volumes:
+      - type: bind
+        source: ./example/htdocs
+        target: /usr/local/apache2/htdocs
