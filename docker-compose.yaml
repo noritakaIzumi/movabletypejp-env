@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  perl:
+    build:
+      context: ./docker/perl
+    volumes:
+      - type: bind
+        source: ./example/cgi-bin
+        target: /usr/local/apache2/cgi-bin
+  httpd:
+    image: httpd:2.4.54-alpine3.17
+    volumes:
+      - type: bind
+        source: ./docker/httpd/httpd.conf
+        target: /usr/local/apache2/conf/httpd.conf
+      - type: bind
+        source: ./example/cgi-bin
+        target: /usr/local/apache2/cgi-bin
+    ports:
+      - "80:80"
