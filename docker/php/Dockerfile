@@ -3,6 +3,7 @@
 ################################################################################
 FROM busybox:latest AS build
 
+COPY user_ini.ini /
 COPY xdebug.ini-override* /
 # Skip if file exists
 RUN cp -n xdebug.ini-override.template xdebug.ini-override
@@ -21,7 +22,8 @@ RUN apk update \
     && [ -d "/var/cache/apk" ] && rm -rf /var/cache/apk/* \
     || true
 
-COPY --from=build xdebug.ini-override /tmp/xdebug.ini-override
+COPY --from=build /user_ini.ini /usr/local/etc/php/conf.d/user_ini.ini
+COPY --from=build /xdebug.ini-override /tmp/xdebug.ini-override
 RUN cat /tmp/xdebug.ini-override >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 WORKDIR /usr/local/apache2
