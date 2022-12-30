@@ -6,8 +6,8 @@ services:
       context: ./docker/perl
     volumes:
       - type: bind
-        source: ./example/cgi-bin
-        target: /usr/local/apache2/cgi-bin
+        source: ./example
+        target: /usr/local/apache2/vhosts/localhost
   httpd:
     image: httpd:2.4.54-alpine3.17
     volumes:
@@ -15,11 +15,11 @@ services:
         source: ./docker/httpd/httpd.conf
         target: /usr/local/apache2/conf/httpd.conf
       - type: bind
-        source: ./example/cgi-bin
-        target: /usr/local/apache2/cgi-bin
+        source: ./docker/httpd/httpd-vhosts.conf
+        target: /usr/local/apache2/conf/extra/httpd-vhosts.conf
       - type: bind
-        source: ./example/htdocs
-        target: /usr/local/apache2/htdocs
+        source: ./example
+        target: /usr/local/apache2/vhosts/localhost
     ports:
       - "80:80"
   php:
@@ -27,5 +27,5 @@ services:
       context: ./docker/php
     volumes:
       - type: bind
-        source: ./example/htdocs
-        target: /usr/local/apache2/htdocs
+        source: ./example
+        target: /usr/local/apache2/vhosts/localhost
