@@ -18,6 +18,9 @@ services:
         source: ./docker/httpd/httpd-vhosts.conf
         target: /usr/local/apache2/conf/extra/httpd-vhosts.conf
       - type: bind
+        source: ./docker/httpd/httpd-ignore-files.conf
+        target: /usr/local/apache2/conf/extra/httpd-ignore-files.conf
+      - type: bind
         source: ./example
         target: /usr/local/apache2/vhosts/localhost
     ports:
