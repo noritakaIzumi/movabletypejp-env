@@ -1,0 +1,6 @@
+requires 'HTML::Entities';
+requires 'DBI';
+requires 'DBD::Pg';
+requires 'DBD::SQLite';
+requires 'DBD::SQLite2';
+requires 'DBD::mysql';
